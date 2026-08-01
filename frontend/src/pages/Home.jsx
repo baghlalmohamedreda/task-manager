@@ -8,11 +8,15 @@ function addtask(title){
     setTasks((prevtask)=>[...tasks,{id:Date.now(),title:title}])
 
 }
+function deletetask(id){
+    setTasks(tasks.filter((t)=>id!==t.id))
+
+}
     return(
         <>
          <Header/>
          <Taskform onAddtask={addtask}/>
-         <TacdskList tasks ={tasks} />
+         <TacdskList tasks ={tasks} onDeletetask={deletetask} />
 
         </>
       
