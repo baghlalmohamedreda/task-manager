@@ -6,7 +6,6 @@ import TaskList from "../components/tasklist/TaskList";
 function Home() {
 
     const [tasks, setTasks] = useState([
-        { id: 1, title: "apprendre react" }
     ]);
 
     const [editingtask, setEditingtask] = useState(null);
