@@ -1,4 +1,4 @@
-function TaskItem({task,onDeletetask}){
+function TaskItem({task,onDeletetask,onEditingtask}){
     return(
         <>
         <div>
@@ -6,7 +6,7 @@ function TaskItem({task,onDeletetask}){
             <input type="checkbox" />
             {task.title}
         </label>
-        <button >modifier</button>
+        <button onClick={()=>onEditingtask(task) } >modifier</button>
         <button onClick={()=>onDeletetask(task.id)} > supprimer</button>
         </div>
         </>

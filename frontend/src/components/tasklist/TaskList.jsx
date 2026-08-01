@@ -1,5 +1,5 @@
-import TaskItem from "../taskitem/taskitem";
-function TaskList({tasks,onDeletetask}){
+import TaskItem from "../taskitem/TaskItem";
+function TaskList({tasks,onDeletetask,onEditingtask}){
     
     return(
     <div>
@@ -10,6 +10,7 @@ function TaskList({tasks,onDeletetask}){
             key={t.id}
             task={t} 
             onDeletetask={onDeletetask}
+            onEditingtask={onEditingtask}
              />
         )
     }
