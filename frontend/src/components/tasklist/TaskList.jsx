@@ -11,7 +11,7 @@ function TaskList({tasks,onDeletetask,onEditingtask}){
             task={task} 
             onDeletetask={onDeletetask}
             onEditingtask={onEditingtask}
-             />
+             /> 
         )
     }
     )}
