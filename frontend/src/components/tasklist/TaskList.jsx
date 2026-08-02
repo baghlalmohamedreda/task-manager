@@ -3,12 +3,12 @@ function TaskList({tasks,onDeletetask,onEditingtask}){
     
     return(
     <div>
-         {tasks.map((t)=>
+         {tasks.map((task)=>
     {
         return(
             <TaskItem 
-            key={t.id}
-            task={t} 
+            key={task.id}
+            task={task} 
             onDeletetask={onDeletetask}
             onEditingtask={onEditingtask}
              />
