@@ -1,5 +1,5 @@
 import TaskItem from "../taskitem/TaskItem";
-function TaskList({tasks,onDeletetask,onEditingtask}){
+function TaskList({tasks,onDeletetask,onEditingtask,onHandlchange}){
     
     return(
     <div>
@@ -11,6 +11,7 @@ function TaskList({tasks,onDeletetask,onEditingtask}){
             task={task} 
             onDeletetask={onDeletetask}
             onEditingtask={onEditingtask}
+            onHandlchange={onHandlchange}
              /> 
         )
     }

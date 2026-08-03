@@ -9,16 +9,13 @@ function Home() {
         return values? JSON.parse(values):[]
     }
 )
-
  const [editingtask, setEditingtask] = useState(null);
+
 useEffect(()=>{
-      console.log("Tasks ont changé :", tasks);
     localStorage.setItem("tasks",JSON.stringify(tasks))  
 },[tasks])
 
     function addtask(title) {
-          console.log("addTask appelée :", title);
-
         if (editingtask) {
 
             setTasks(prevtasks =>
@@ -35,12 +32,26 @@ useEffect(()=>{
                 ...prevtasks,
                 {
                     id: Date.now(),
-                    title: title
+                    title: title,
+                    completed:false
                 }
             ]);
 
         }
     }
+    function handlchange(id){
+        setTasks(prev=>prev.map(task=>
+            task.id===id?
+            {...task,completed:!task.completed}
+            :task
+
+
+        ))
+
+    }
+
+
+    
     function deletetask(id) {
         setTasks(prevtasks =>
             prevtasks.filter(task => task.id !== id)
@@ -61,6 +72,7 @@ useEffect(()=>{
                 tasks={tasks}
                 onDeletetask={deletetask}
                 onEditingtask={edittask}
+                onHandlchange={handlchange}
             />
         </>
     );
