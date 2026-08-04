@@ -4,6 +4,7 @@ import DeleteModal from "../components/deletemodal/DeleteModal"
 import { useState,useEffect } from "react";
 import TaskList from "../components/tasklist/TaskList";
 
+
 function Home() {
     const [tasks, setTasks] = useState(()=>{
         const values=localStorage.getItem("tasks")
@@ -79,6 +80,7 @@ function confirmesuppression(){
                 onAddtask={addtask}
                 editingtask={editingtask}
             />
+        
             <TaskList
                 tasks={tasks}
                 onDeletetask={deletetask}

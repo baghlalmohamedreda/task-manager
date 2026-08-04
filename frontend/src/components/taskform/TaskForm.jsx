@@ -17,6 +17,11 @@ function TaskForm({onAddtask,editingtask}){
     return(
         <>
         <form className="task-form" action="">
+            <select className="filter-select">
+        <option value="all">Toutes</option>
+        <option value="active">Actives</option>
+        <option value="completed">Terminées</option>
+    </select>
             <div className="input-container">
                    <input  type="text"  placeholder="Entrez une tâche..." value={title} onChange={(e)=> {setTitle(e.target.value)
                 setErr("")
