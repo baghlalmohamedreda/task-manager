@@ -1,5 +1,5 @@
 import { useState } from "react"
-
+import "./TaskForm.css"
 function TaskForm({onAddtask,editingtask}){
     const [title,setTitle]=useState(editingtask ? editingtask.title : "")
     function handleclick(){
@@ -8,8 +8,11 @@ function TaskForm({onAddtask,editingtask}){
     }
     return(
         <>
-        <input type="text"  placeholder="Entrez une tâche..." value={title} onChange={(e)=> setTitle(e.target.value)}/>
-        <button onClick={handleclick}>{editingtask ? "Modifier" : "Ajouter"}</button>
+        <form className="task-form" action="">
+             <input  type="text"  placeholder="Entrez une tâche..." value={title} onChange={(e)=> setTitle(e.target.value)}/>
+             <button onClick={handleclick}>{editingtask ? "Modifier" : "Ajouter"}</button>
+        </form>
+       
         </>
     )
 }

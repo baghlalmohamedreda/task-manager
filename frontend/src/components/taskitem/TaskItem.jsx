@@ -1,8 +1,11 @@
+import "./TaskItem.css"
+
 function TaskItem({task,onDeletetask,onEditingtask,onHandlchange}){
     return(
         <>
-        <div>
-            <label>
+        <div className="task-item">
+
+            <label className="task-info">
                 
             <input type="checkbox" checked={task.completed} onChange={()=>onHandlchange(task.id)}/>
             <span style={{ textDecoration: task.completed? "line-through":"none"
@@ -11,9 +14,13 @@ function TaskItem({task,onDeletetask,onEditingtask,onHandlchange}){
    
 
             </label>
+        <div className="task-buttons">
+            <button onClick={()=>onEditingtask(task) } >modifier</button>
+            <button onClick={()=>onDeletetask(task.id)} > supprimer</button>
+            
+            </div>    
 
-        <button onClick={()=>onEditingtask(task) } >modifier</button>
-        <button onClick={()=>onDeletetask(task.id)} > supprimer</button>
+        
         </div>
         
         </>

@@ -1,8 +1,9 @@
 import TaskItem from "../taskitem/TaskItem";
+import "./TaskList.css"
 function TaskList({tasks,onDeletetask,onEditingtask,onHandlchange}){
     
     return(
-    <div>
+    <div className="task-list">
          {tasks.map((task)=>
     {
         return(
