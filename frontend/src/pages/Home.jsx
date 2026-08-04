@@ -1,5 +1,6 @@
 import Header from "../components/header/Header";
 import TaskForm from "../components/taskform/TaskForm";
+import DeleteModal from "../components/deletemodal/DeleteModal"
 import { useState,useEffect } from "react";
 import TaskList from "../components/tasklist/TaskList";
 
@@ -10,6 +11,8 @@ function Home() {
     }
 )
  const [editingtask, setEditingtask] = useState(null);
+ const [showmodal,setShowmodal]=useState(false)
+ const [tasktodelete,setTasktodelete]=useState(null)
 
 useEffect(()=>{
     localStorage.setItem("tasks",JSON.stringify(tasks))  
@@ -50,12 +53,20 @@ useEffect(()=>{
 
     }
 
-
-    
+function annuler(){
+    setShowmodal(false)
+    setTasktodelete(null)
+}
+function confirmesuppression(){
+    if(tasktodelete){
+        setTasks(prev=>prev.filter(e=>e.id!==tasktodelete))
+        setShowmodal(false)
+        setTasktodelete(null)
+    }
+}
     function deletetask(id) {
-        setTasks(prevtasks =>
-            prevtasks.filter(task => task.id !== id)
-        );
+        setShowmodal(true)
+        setTasktodelete(id) 
     }
     function edittask(task) {
         setEditingtask(task);
@@ -74,6 +85,10 @@ useEffect(()=>{
                 onEditingtask={edittask}
                 onHandlchange={handlchange}
             />
+            {showmodal && <DeleteModal  
+                   onAnuller={annuler}
+                   onSupprimer={confirmesuppression}
+            />}
         </>
     );
 }

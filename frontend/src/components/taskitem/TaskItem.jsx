@@ -16,7 +16,7 @@ function TaskItem({task,onDeletetask,onEditingtask,onHandlchange}){
             </label>
         <div className="task-buttons">
             <button onClick={()=>onEditingtask(task) } >modifier</button>
-            <button onClick={()=>onDeletetask(task.id)} > supprimer</button>
+            <button onClick={()=>onDeletetask(task.id)}  > supprimer</button>
             
             </div>    
 
