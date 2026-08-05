@@ -4,6 +4,7 @@ import DeleteModal from "../components/deletemodal/DeleteModal"
 import { useState,useEffect } from "react";
 import TaskList from "../components/tasklist/TaskList";
 import TaskStats from "../components/taskstats/TaskStats";
+import DeleteCompleted from "../components/deletemodal/DeleteCompleted"
 function Home() {
     const [tasks, setTasks] = useState(()=>{
         const values=localStorage.getItem("tasks")
@@ -12,6 +13,7 @@ function Home() {
 )
  const [editingtask, setEditingtask] = useState(null);
  const [showmodal,setShowmodal]=useState(false)
+ const [showdelete,setShowdelete]=useState(false)
  const [tasktodelete,setTasktodelete]=useState(null)
  const [filter,setFilter]=useState("all")
 useEffect(()=>{
@@ -79,12 +81,25 @@ function confirmesuppression(){
             return tasks.filter(e=>e.completed===false)
         }
         else if(filter=="completed"){
-            return tasks.filter(e=>e.completed==false)
+            return tasks.filter(e=>e.completed==true)
             
         }
     }
     function handlechange(e){
         setFilter(e.target.value)
+    }
+    function annulersuppresiondt(){
+        setShowdelete(false)
+
+
+    }
+    function confirmersuppresiondt(){
+        setTasks(prev=>prev.filter(e=>e.completed==false))
+        setShowdelete(false)
+    }
+    function supprimertt(){
+        setShowdelete(true)
+
     }
     return (
         <>
@@ -101,11 +116,16 @@ function confirmesuppression(){
                 onDeletetask={deletetask}
                 onEditingtask={edittask}
                 onHandlchange={handlchange}
+                onSupprimertt={supprimertt}
             />
             {showmodal && <DeleteModal  
                    onAnuller={annuler}
                    onSupprimer={confirmesuppression}
             />}
+            {showdelete && <DeleteCompleted 
+                            onAnuller={annulersuppresiondt}
+                            onSupprimer={confirmersuppresiondt}
+             />}
             <TaskStats tasks={tasks} />
         </>
     );

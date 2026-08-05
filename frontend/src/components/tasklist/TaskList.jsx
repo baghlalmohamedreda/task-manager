@@ -1,9 +1,14 @@
 import TaskItem from "../taskitem/TaskItem";
 import "./TaskList.css"
-function TaskList({tasks,onDeletetask,onEditingtask,onHandlchange,onHandlefilterchange}){
+function TaskList({tasks,onDeletetask,onEditingtask,onHandlchange,onHandlefilterchange,onSupprimertt}){
     
     return(
     <div className="task-list">
+       <div className="clear-completed-btn">
+    <button onClick={onSupprimertt}>
+         Supprimer terminées
+    </button>
+</div>
          {tasks.map((task)=>
     {
         return(
@@ -17,6 +22,7 @@ function TaskList({tasks,onDeletetask,onEditingtask,onHandlchange,onHandlefilter
         )
     }
     )}
+    
     </div>
     )
 }
