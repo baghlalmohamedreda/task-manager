@@ -3,6 +3,7 @@ import TaskForm from "../components/taskform/TaskForm";
 import DeleteModal from "../components/deletemodal/DeleteModal"
 import { useState,useEffect } from "react";
 import TaskList from "../components/tasklist/TaskList";
+import TaskStats from "../components/taskstats/TaskStats";
 function Home() {
     const [tasks, setTasks] = useState(()=>{
         const values=localStorage.getItem("tasks")
@@ -105,6 +106,7 @@ function confirmesuppression(){
                    onAnuller={annuler}
                    onSupprimer={confirmesuppression}
             />}
+            <TaskStats tasks={tasks} />
         </>
     );
 }
