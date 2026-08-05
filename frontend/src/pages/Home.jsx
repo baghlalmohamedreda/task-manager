@@ -3,8 +3,6 @@ import TaskForm from "../components/taskform/TaskForm";
 import DeleteModal from "../components/deletemodal/DeleteModal"
 import { useState,useEffect } from "react";
 import TaskList from "../components/tasklist/TaskList";
-
-
 function Home() {
     const [tasks, setTasks] = useState(()=>{
         const values=localStorage.getItem("tasks")
@@ -14,11 +12,10 @@ function Home() {
  const [editingtask, setEditingtask] = useState(null);
  const [showmodal,setShowmodal]=useState(false)
  const [tasktodelete,setTasktodelete]=useState(null)
-
+ const [filter,setFilter]=useState("all")
 useEffect(()=>{
     localStorage.setItem("tasks",JSON.stringify(tasks))  
 },[tasks])
-
     function addtask(title) {
         if (editingtask) {
 
@@ -72,6 +69,22 @@ function confirmesuppression(){
     function edittask(task) {
         setEditingtask(task);
     }
+    
+    function handlefilterchange(){
+        if(filter=="all"){
+            return tasks
+        }
+        else if(filter=="active"){
+            return tasks.filter(e=>e.completed===false)
+        }
+        else if(filter=="completed"){
+            return tasks.filter(e=>e.completed==false)
+            
+        }
+    }
+    function handlechange(e){
+        setFilter(e.target.value)
+    }
     return (
         <>
             <Header />
@@ -79,10 +92,11 @@ function confirmesuppression(){
                 key={editingtask ? editingtask.id : "new-task"}
                 onAddtask={addtask}
                 editingtask={editingtask}
+                onHandlechange={handlechange}
             />
         
             <TaskList
-                tasks={tasks}
+                tasks={handlefilterchange()}
                 onDeletetask={deletetask}
                 onEditingtask={edittask}
                 onHandlchange={handlchange}

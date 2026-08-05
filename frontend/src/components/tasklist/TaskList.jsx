@@ -1,6 +1,6 @@
 import TaskItem from "../taskitem/TaskItem";
 import "./TaskList.css"
-function TaskList({tasks,onDeletetask,onEditingtask,onHandlchange}){
+function TaskList({tasks,onDeletetask,onEditingtask,onHandlchange,onHandlefilterchange}){
     
     return(
     <div className="task-list">

@@ -1,6 +1,6 @@
 import { useState } from "react"
 import "./TaskForm.css"
-function TaskForm({onAddtask,editingtask}){
+function TaskForm({onAddtask,editingtask,onHandlechange}){
     const [title,setTitle]=useState(editingtask ? editingtask.title : "")
     const [err,setErr]=useState("")
     function handleclick(e){
@@ -17,7 +17,7 @@ function TaskForm({onAddtask,editingtask}){
     return(
         <>
         <form className="task-form" action="">
-            <select className="filter-select">
+            <select className="filter-select" onChange={onHandlechange}>
         <option value="all">Toutes</option>
         <option value="active">Actives</option>
         <option value="completed">Terminées</option>
