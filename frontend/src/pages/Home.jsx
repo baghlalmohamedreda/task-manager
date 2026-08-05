@@ -5,6 +5,7 @@ import { useState,useEffect } from "react";
 import TaskList from "../components/tasklist/TaskList";
 import TaskStats from "../components/taskstats/TaskStats";
 import DeleteCompleted from "../components/deletemodal/DeleteCompleted"
+import "./Home.css"
 function Home() {
     const [tasks, setTasks] = useState(()=>{
         const values=localStorage.getItem("tasks")
@@ -101,33 +102,43 @@ function confirmesuppression(){
         setShowdelete(true)
 
     }
-    return (
-        <>
-            <Header />
-            <TaskForm
-                key={editingtask ? editingtask.id : "new-task"}
-                onAddtask={addtask}
-                editingtask={editingtask}
-                onHandlechange={handlechange}
+    
+       return (
+    <div className="home">
+        <Header />
+
+        <TaskForm
+            key={editingtask ? editingtask.id : "new-task"}
+            onAddtask={addtask}
+            editingtask={editingtask}
+            onHandlechange={handlechange}
+        />
+
+        <TaskList
+            tasks={handlefilterchange()}
+            onDeletetask={deletetask}
+            onEditingtask={edittask}
+            onHandlchange={handlchange}
+            onSupprimertt={supprimertt}
+        />
+
+        <TaskStats tasks={tasks} />
+
+        {showmodal && (
+            <DeleteModal
+                onAnuller={annuler}
+                onSupprimer={confirmesuppression}
             />
-        
-            <TaskList
-                tasks={handlefilterchange()}
-                onDeletetask={deletetask}
-                onEditingtask={edittask}
-                onHandlchange={handlchange}
-                onSupprimertt={supprimertt}
+        )}
+
+        {showdelete && (
+            <DeleteCompleted
+                onAnuller={annulersuppresiondt}
+                onSupprimer={confirmersuppresiondt}
             />
-            {showmodal && <DeleteModal  
-                   onAnuller={annuler}
-                   onSupprimer={confirmesuppression}
-            />}
-            {showdelete && <DeleteCompleted 
-                            onAnuller={annulersuppresiondt}
-                            onSupprimer={confirmersuppresiondt}
-             />}
-            <TaskStats tasks={tasks} />
-        </>
-    );
+        )}
+    </div>
+);
+    
 }
 export default Home;
