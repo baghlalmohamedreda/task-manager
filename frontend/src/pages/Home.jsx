@@ -21,12 +21,16 @@ const [searchtask,setSearchtask]=useState(()=>{
     return localStorage.getItem("searchtask")||""
 
 })
+const [theme,setTheme]=useState(()=>{
+    return localStorage.getItem("theme")||"light"
+
+
+})
  const [editingtask, setEditingtask] = useState(null);
  const [showmodal,setShowmodal]=useState(false)
  const [showdelete,setShowdelete]=useState(false)
  const [tasktodelete,setTasktodelete]=useState(null)
 
- 
 useEffect(()=>{
     localStorage.setItem("tasks",JSON.stringify(tasks))  
 },[tasks])
@@ -39,7 +43,24 @@ useEffect(()=>{
     localStorage.setItem("searchtask",searchtask)
 
 },[searchtask])
-    function addtask(title) {
+useEffect(()=>{
+    localStorage.setItem("theme",theme)
+
+
+},[theme])
+
+
+function toggletheme(){
+    if(theme=="light"){
+        setTheme("dark")
+    }
+    else{
+        setTheme("light")
+    }
+
+}
+
+function addtask(title) {
         if (editingtask) {
 
             setTasks(prevtasks =>
@@ -133,7 +154,7 @@ function handlesearchtask(){
 
 return (
     <div className="home">
-        <Header />
+        <Header onToggletheme={toggletheme} theme={theme}/>
         <TaskForm
             key={editingtask ? editingtask.id : "new-task"}
             onAddtask={addtask}

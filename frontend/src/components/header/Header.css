@@ -1,4 +1,75 @@
-.h11 {
-    text-align: center;
-    margin: 0 0 40px 0;
+.header {
+    width: 100%;
+    max-width: 1265px; /* même largeur que ta liste des tâches */
+    margin: 30px auto;
+    padding: 20px 45px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: white;
+    border-radius: 18px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+
+    box-sizing: border-box;
+}
+
+
+/* Logo Task Manager */
+.logo h1 {
+    margin: 0;
+    font-size: 38px;
+    font-weight: 800;
+    color: #172554;
+    letter-spacing: -1px;
+}
+
+
+/* Bouton theme */
+.theme-btn {
+    width: 55px;
+    height: 55px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #f3f4f6;
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: 0.3s ease;
+}
+
+
+.theme-btn:hover {
+    transform: scale(1.1);
+    background: #e5e7eb;
+}
+
+
+/* Responsive pour petits écrans */
+@media (max-width: 700px) {
+
+    .header {
+        padding: 15px 20px;
+        margin: 20px auto;
+    }
+
+    .logo h1 {
+        font-size: 28px;
+    }
+
+    .theme-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 22px;
+    }
 }

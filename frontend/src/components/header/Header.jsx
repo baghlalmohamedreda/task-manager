@@ -1,7 +1,16 @@
 import "./Header.css"
-function Header(){
+function Header({onToggletheme,theme}){
     return (
-        <h1 className="h11">Task Manager</h1>
+         <div className="header">
+            <div className="logo">
+                
+                <h1>Task Manager</h1>
+            </div>
+
+            <button className="theme-btn" onClick={onToggletheme}>
+                {theme === "light" ? "🌙" : "☀️"}
+            </button>
+        </div>
 
     )
 }
