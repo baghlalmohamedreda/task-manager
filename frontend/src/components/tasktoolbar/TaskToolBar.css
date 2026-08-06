@@ -135,3 +135,20 @@
     background-repeat: no-repeat;
     background-position: right 14px center;
 }
+.search-input {
+    background-color: white;
+    color: black;
+}
+.app.dark .search-input {
+    background-color: #222;
+    color: white;
+    border-color: #555;
+}
+
+.app.dark .search-input::placeholder {
+    color: #aaa;
+}
+.app.dark select {
+    background-color: #222;
+    color: white;
+}

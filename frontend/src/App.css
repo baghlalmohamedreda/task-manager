@@ -22,3 +22,21 @@ h1{
     margin-bottom:30px;
     color:#333;
 }
+.app {
+    min-height: 100vh;
+    transition: 0.3s;
+}
+
+
+/* Theme clair */
+.light {
+    background-color: #f5f5f5;
+    color: #222;
+}
+
+
+/* Theme sombre */
+.dark {
+    background-color: #121212;
+    color: white;
+}

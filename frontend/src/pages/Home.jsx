@@ -153,7 +153,8 @@ function handlesearchtask(){
 }    
 
 return (
-    <div className="home">
+    <div className={`app ${theme}`}>
+        <div className="home">
         <Header onToggletheme={toggletheme} theme={theme}/>
         <TaskForm
             key={editingtask ? editingtask.id : "new-task"}
@@ -192,6 +193,12 @@ return (
             />
         )}
     </div>
+
+
+
+
+    </div>
+    
 )
 }
 export default Home;

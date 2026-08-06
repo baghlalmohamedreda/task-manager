@@ -87,3 +87,12 @@
     color: #888;
     text-decoration: line-through;
 }
+.task-item {
+    background-color: white;
+    color: #222;
+}
+
+.app.dark .task-item {
+    background-color: #2b2b2b;
+    color: white;
+}

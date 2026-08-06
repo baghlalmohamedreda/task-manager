@@ -1,6 +1,6 @@
 .header {
     width: 100%;
-    max-width: 1265px; /* même largeur que ta liste des tâches */
+    max-width: 1265px;
     margin: 30px auto;
     padding: 20px 45px;
 
@@ -8,34 +8,72 @@
     justify-content: space-between;
     align-items: center;
 
-    background: white;
     border-radius: 18px;
 
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 
     box-sizing: border-box;
+
+    transition: 0.3s ease;
 }
 
 
-/* Logo Task Manager */
+/* ===== LIGHT THEME ===== */
+
+.light .header {
+    background: white;
+}
+
+
+.light .logo h1 {
+    color: #172554;
+}
+
+
+.light .theme-btn {
+    background: #f3f4f6;
+}
+
+
+
+/* ===== DARK THEME ===== */
+
+.dark .header {
+    background: #1e1e1e;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+
+.dark .logo h1 {
+    color: white;
+}
+
+
+.dark .theme-btn {
+    background: #333;
+}
+
+
+
+/* LOGO */
+
 .logo h1 {
     margin: 0;
     font-size: 38px;
     font-weight: 800;
-    color: #172554;
     letter-spacing: -1px;
 }
 
 
-/* Bouton theme */
+
+/* BUTTON */
+
 .theme-btn {
     width: 55px;
     height: 55px;
 
     border: none;
     border-radius: 50%;
-
-    background: #f3f4f6;
 
     font-size: 28px;
 
@@ -51,11 +89,12 @@
 
 .theme-btn:hover {
     transform: scale(1.1);
-    background: #e5e7eb;
 }
 
 
-/* Responsive pour petits écrans */
+
+/* Responsive */
+
 @media (max-width: 700px) {
 
     .header {

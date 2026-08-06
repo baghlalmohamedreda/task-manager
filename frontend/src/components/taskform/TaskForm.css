@@ -65,3 +65,57 @@
     border-color: #2563eb;
     box-shadow: 0 0 10px rgba(37,99,235,.15);
 }
+/* ===== Light theme ===== */
+
+.light .task-form input {
+    background-color: white;
+    color: #222;
+    border-color: #ccc;
+}
+
+.light .task-form input::placeholder {
+    color: #777;
+}
+
+
+/* ===== Dark theme ===== */
+
+.dark .task-form input {
+    background-color: #1e1e1e;
+    color: white;
+    border-color: #555;
+}
+
+.dark .task-form input::placeholder {
+    color: #aaa;
+}
+
+
+.dark .task-form button {
+    background-color: #3b82f6;
+}
+
+.dark .task-form button:hover {
+    background-color: #2563eb;
+}
+
+
+.dark .err {
+    color: #ff6b6b;
+}
+.light .task-form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
+.dark .task-form {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+}
+.app.dark input {
+    background-color: #222;
+    color: white;
+}
