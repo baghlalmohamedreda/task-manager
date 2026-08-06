@@ -33,15 +33,16 @@ useEffect(()=>{
 
             setEditingtask(null);
         } else {
-            setTasks(prevtasks => [
+                 setTasks(prevtasks => [
                 ...prevtasks,
                 {
                     id: Date.now(),
                     title: title,
                     completed:false
                 }
-            ]);
+            ])
 
+           
         }
     }
     function handlchange(id){
@@ -112,6 +113,7 @@ function confirmesuppression(){
             onAddtask={addtask}
             editingtask={editingtask}
             onHandlechange={handlechange}
+            tasks={tasks}
         />
 
         <TaskList
@@ -121,7 +123,6 @@ function confirmesuppression(){
             onHandlchange={handlchange}
             onSupprimertt={supprimertt}
         />
-
         <TaskStats tasks={tasks} />
 
         {showmodal && (
