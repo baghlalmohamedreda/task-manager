@@ -45,17 +45,13 @@ useEffect(()=>{
            
         }
     }
-    function handlchange(id){
+function handlchange(id){
         setTasks(prev=>prev.map(task=>
             task.id===id?
             {...task,completed:!task.completed}
             :task
-
-
         ))
-
     }
-
 function annuler(){
     setShowmodal(false)
     setTasktodelete(null)
@@ -67,15 +63,15 @@ function confirmesuppression(){
         setTasktodelete(null)
     }
 }
-    function deletetask(id) {
+function deletetask(id) {
         setShowmodal(true)
         setTasktodelete(id) 
     }
-    function edittask(task) {
+function edittask(task) {
         setEditingtask(task);
     }
     
-    function handlefilterchange(){
+function handlefilterchange(){
         if(filter=="all"){
             return tasks
         }
@@ -87,27 +83,26 @@ function confirmesuppression(){
             
         }
     }
-    function handlechange(e){
+function handlechange(e){
         setFilter(e.target.value)
     }
-    function annulersuppresiondt(){
+function annulersuppresiondt(){
         setShowdelete(false)
 
 
     }
-    function confirmersuppresiondt(){
+function confirmersuppresiondt(){
         setTasks(prev=>prev.filter(e=>e.completed==false))
         setShowdelete(false)
     }
-    function supprimertt(){
+function supprimertt(){
         setShowdelete(true)
 
     }
-    
-       return (
+
+return (
     <div className="home">
         <Header />
-
         <TaskForm
             key={editingtask ? editingtask.id : "new-task"}
             onAddtask={addtask}
@@ -115,7 +110,6 @@ function confirmesuppression(){
             onHandlechange={handlechange}
             tasks={tasks}
         />
-
         <TaskList
             tasks={handlefilterchange()}
             onDeletetask={deletetask}
@@ -124,14 +118,12 @@ function confirmesuppression(){
             onSupprimertt={supprimertt}
         />
         <TaskStats tasks={tasks} />
-
         {showmodal && (
             <DeleteModal
                 onAnuller={annuler}
                 onSupprimer={confirmesuppression}
             />
         )}
-
         {showdelete && (
             <DeleteCompleted
                 onAnuller={annulersuppresiondt}
@@ -139,7 +131,6 @@ function confirmesuppression(){
             />
         )}
     </div>
-);
-    
+)
 }
 export default Home;
