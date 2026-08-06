@@ -25,7 +25,7 @@ function TaskForm({onAddtask,editingtask,tasks}){
         <>
         <form className="task-form" action="">
             <div className="input-container">
-                   <input  type="text"  placeholder="Entrez une tâche..." value={title} onChange={(e)=> {setTitle(e.target.value)
+                   <input  type="text"  placeholder="Entrez une tache..." value={title} onChange={(e)=> {setTitle(e.target.value)
                 setErr("")
                 setErreur("")
              }}/>

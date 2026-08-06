@@ -40,3 +40,50 @@
 .task-buttons button:hover{
     opacity:.85;
 }
+.task-item {
+    animation: fadeInUp 0.35s ease;
+    transition: all 0.25s ease;
+}
+
+.task-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.task-item button {
+    transition: all 0.2s ease;
+}
+
+.task-item button:hover {
+    transform: scale(1.05);
+}
+
+.task-item button:active {
+    transform: scale(0.95);
+}
+.task-item input[type="checkbox"] {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.task-item input[type="checkbox"]:hover {
+    transform: scale(1.15);
+}
+.task-title {
+    transition: all 0.3s ease;
+}
+.completed {
+    color: #888;
+    text-decoration: line-through;
+}

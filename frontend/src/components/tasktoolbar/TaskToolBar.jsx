@@ -5,7 +5,7 @@ function TaskToolBar({onSupprimertt,onHandlechange,onHandlesearchbar}){
              <div className="search-container">
                 <input
                     type="text"
-                    placeholder="🔍 Rechercher une tâche..."
+                    placeholder="🔍 Rechercher une tache..."
                     onChange={onHandlesearchbar}
                 />
             </div>
