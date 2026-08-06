@@ -5,6 +5,7 @@ import { useState,useEffect } from "react";
 import TaskList from "../components/tasklist/TaskList";
 import TaskStats from "../components/taskstats/TaskStats";
 import DeleteCompleted from "../components/deletemodal/DeleteCompleted"
+import TaskToolBar from "../components/tasktoolbar/TaskToolBar"
 import "./Home.css"
 function Home() {
     const [tasks, setTasks] = useState(()=>{
@@ -17,6 +18,7 @@ function Home() {
  const [showdelete,setShowdelete]=useState(false)
  const [tasktodelete,setTasktodelete]=useState(null)
  const [filter,setFilter]=useState("all")
+ const [searchtask,setSearchtask]=useState("")
 useEffect(()=>{
     localStorage.setItem("tasks",JSON.stringify(tasks))  
 },[tasks])
@@ -99,6 +101,18 @@ function supprimertt(){
         setShowdelete(true)
 
     }
+function handlesearchbar(e){
+    setSearchtask(e.target.value)
+}
+function handlesearchtask(){
+    if(searchtask.trim()){
+        return handlefilterchange().filter(e=>e.title.trim().toLowerCase().includes(searchtask.toLowerCase()))
+
+    }
+    return handlefilterchange()
+
+
+}    
 
 return (
     <div className="home">
@@ -110,8 +124,15 @@ return (
             onHandlechange={handlechange}
             tasks={tasks}
         />
+        <TaskToolBar onSupprimertt={supprimertt} 
+                     onHandlechange={handlechange}
+                     onHandlesearchbar={handlesearchbar}
+
+
+        
+        />
         <TaskList
-            tasks={handlefilterchange()}
+            tasks={handlesearchtask()}
             onDeletetask={deletetask}
             onEditingtask={edittask}
             onHandlchange={handlchange}
