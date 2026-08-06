@@ -13,15 +13,32 @@ function Home() {
         return values? JSON.parse(values):[]
     }
 )
+const [filter,setFilter]=useState(()=>{
+    return localStorage.getItem("filter")||"all"
+
+})
+const [searchtask,setSearchtask]=useState(()=>{
+    return localStorage.getItem("searchtask")||""
+
+})
  const [editingtask, setEditingtask] = useState(null);
  const [showmodal,setShowmodal]=useState(false)
  const [showdelete,setShowdelete]=useState(false)
  const [tasktodelete,setTasktodelete]=useState(null)
- const [filter,setFilter]=useState("all")
- const [searchtask,setSearchtask]=useState("")
+
+ 
 useEffect(()=>{
     localStorage.setItem("tasks",JSON.stringify(tasks))  
 },[tasks])
+useEffect(()=>{
+    localStorage.setItem("filter",filter)
+
+}
+,[filter])
+useEffect(()=>{
+    localStorage.setItem("searchtask",searchtask)
+
+},[searchtask])
     function addtask(title) {
         if (editingtask) {
 
@@ -127,6 +144,8 @@ return (
         <TaskToolBar onSupprimertt={supprimertt} 
                      onHandlechange={handlechange}
                      onHandlesearchbar={handlesearchbar}
+                     searchtask={searchtask}
+                     filter={filter}
 
 
         

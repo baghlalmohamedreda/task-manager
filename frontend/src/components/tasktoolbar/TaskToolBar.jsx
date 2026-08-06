@@ -1,5 +1,5 @@
 import "./TaskToolBar.css"
-function TaskToolBar({onSupprimertt,onHandlechange,onHandlesearchbar}){
+function TaskToolBar({onSupprimertt,onHandlechange,onHandlesearchbar,searchtask,filter}){
     return(
          <div className="task-toolbar">
              <div className="search-container">
@@ -7,12 +7,14 @@ function TaskToolBar({onSupprimertt,onHandlechange,onHandlesearchbar}){
                     type="text"
                     placeholder="🔍 Rechercher une tache..."
                     onChange={onHandlesearchbar}
+                    value={searchtask}
                 />
             </div>
              <div className="toolbar-actions">
                 <select
                     className="filter-select"
                     onChange={onHandlechange}
+                    value={filter}
                 >
                     <option value="all">Toutes</option>
                     <option value="active">Actives</option>
