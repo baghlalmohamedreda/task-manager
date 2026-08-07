@@ -99,6 +99,8 @@
     background-color: #2563eb;
 }
 
+.task-form,
+.task-form input,
 
 .dark .err {
     color: #ff6b6b;

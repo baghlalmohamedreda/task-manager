@@ -14,6 +14,13 @@
     box-shadow: 0 2px 6px rgba(0,0,0,.08);
 }
 
+
+.task-stats {
+    transition: background-color 0.5s ease,
+                color 0.5s ease;
+}
+
+
 .stat-item span {
     display: block;
     font-size: 0.9rem;
@@ -26,4 +33,18 @@
     font-size: 1.3rem;
     font-weight: 600;
     color: #1f2937;
+}
+
+.dark .stat-item {
+    background: #1f1f1f;
+    border: 1px solid #3a3a3a;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dark .stat-item span {
+    color: #bdbdbd;
+}
+
+.dark .stat-item strong {
+    color: #ffffff;
 }
