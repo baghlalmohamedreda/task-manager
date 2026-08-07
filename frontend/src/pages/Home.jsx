@@ -85,6 +85,9 @@ function addtask(title) {
            
         }
     }
+useEffect(() => {
+    document.body.className = theme;
+}, [theme]);    
 function handlchange(id){
         setTasks(prev=>prev.map(task=>
             task.id===id?
