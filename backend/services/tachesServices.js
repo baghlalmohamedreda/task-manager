@@ -16,3 +16,4 @@ export async function regesterUser(name,email,password){
         `[name,email,password])
     return result.rows[0]    
 }
+
