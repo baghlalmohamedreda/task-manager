@@ -24,3 +24,14 @@ export async function findUserToLogin(email,password){
     }
     return user
 }
+export async function regesterUser(name,email,password){
+    const hashedPassword=await bcrypt.hash(password,10)
+    const result=await pool.query(`
+        insert into users(name,email,password)
+        values
+        ($1,$2,$3,$4)
+        RETURNING *
+        `,[name,email,hashedPassword])
+    return result.rows[0]    
+
+}

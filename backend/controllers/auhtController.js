@@ -1,4 +1,4 @@
-import {getUserByEmail,findUserToLogin} from "../services/authService.js"
+import {getUserByEmail,findUserToLogin,regesterUser} from "../services/authService.js"
 export async function login(req,res){
     try{
     const {email,password}=req.body
