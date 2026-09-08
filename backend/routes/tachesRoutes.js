@@ -1,9 +1,10 @@
 import express from "express"
-import { deleteTacheController, getTachesController } from "../controllers/tachesControllers.js"
+import { deleteTaskController, getTasksController } from "../controllers/tachesControllers.js"
+import { authMiddleware } from "../middleware/authMiddleware.js"
 const router=express.Router()
 
-router.get("/",getTachesController)
-router.delete("/",deleteTacheController)
+router.get("/",authMiddleware,getTasksController)
+router.delete("/",authMiddleware,deleteTaskController)
 
 
 export default router

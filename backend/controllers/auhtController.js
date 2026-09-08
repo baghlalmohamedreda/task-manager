@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken"
 import {getUserByEmail,findUserToLogin,regesterUser} from "../services/authService.js"
 export async function login(req,res){
     try{
@@ -6,7 +7,7 @@ export async function login(req,res){
     if(!userExist){
        return res.status(401).json({message:"user email or password not correct"})
     }
-    const token =jwt.signe({
+    const token =jwt.sign({
         id:userExist.id
     },
     process.env.JWT_SECRET,
