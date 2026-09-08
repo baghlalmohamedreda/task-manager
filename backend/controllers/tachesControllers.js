@@ -1,4 +1,4 @@
-import { getTasks,delelteTask,deleteAll,addTask } from "../services/tachesServices.js";
+import { getTasks,delelteTask,deleteAll,addTask,updateTask } from "../services/tachesServices.js";
 
 export async function getTasksController(req,res){
     try{
@@ -39,13 +39,35 @@ export async function deleteAllTasksCotroller(req,res){
     }
   
 }
-export async function addTask(req,res){
-    const userId=req.userId
-    const {title,description,completed}=req.body
-    const response = await addTask(userId,title,description,completed)
-    if(!response){
-        return res.status(400).json({message:"error"})
-    }
+export async function addTaskController(req,res){
+    try{
+        const userId=req.userId
+        const {title,description,completed}=req.body
+        const response = await addTask(userId,title,description,completed)
+        if(!response){
+           return res.status(400).json({message:"error"})
+       }
     return res.status(200).json({message:" add successeful"})
+    }catch(e){
+        res.status(500).json({message:e.message})
+    }
+    
+}
+export async function updateTaskController(req,res){
+    try{
+        const userId=req.userId
+        const id=req.params.id
+        const {title,completed}=req.body
+        const response=await updateTask(id,title,completed,userId)
+        if(!response){
+            return res.status(400).json({message:"non trouve"})
+        }
+    return res.status(200).json({message:"updated successefully"})
 
+
+    }catch(e){
+        res.status(500).json({message:e.message})
+
+    }
+    
 }

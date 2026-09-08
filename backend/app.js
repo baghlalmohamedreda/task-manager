@@ -1,10 +1,13 @@
 import express from "express"
 import cors from "cors"
 import tachesRoutes from "./routes/tachesRoutes.js"
-import { regesterUser } from "./services/authService.js"
+import authRoutes from "./routes/authRoutes.js"
 
 const app=express()
 app.use(express.json())
 app.use(cors())
-app.use("/api/taches",tachesRoutes)
-app.use("/api/auth",)
+app.use("/api/tasks",tachesRoutes)
+app.use("/api/auth",authRoutes)
+
+
+export default app

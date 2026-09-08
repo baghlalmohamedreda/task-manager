@@ -31,5 +31,15 @@ export async function addTask({userId,title,description,completed}){
         `,[userId,title,description,completed])
     return result ||null    
 }
-
+export async function updateTask({userId,title,id,completed}){
+    const result =await pool.query(`
+        UPDATE taches
+        SET title = $1,
+        completed = $2
+        WHERE id = $3
+        and user_id=$4
+        RETURNING *
+        `,[title,completed,id,userId])
+    return result.rows[0]  || null 
+}
 
