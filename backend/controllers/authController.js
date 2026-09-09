@@ -38,7 +38,6 @@ export async function register(req,res){
         res.status(200).json({message:"succes"})
     }
 
-
     }catch(e){
         res.status(500).json({message:e.message})
     }
