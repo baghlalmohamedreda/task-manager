@@ -4,10 +4,10 @@ import { authMiddleware } from "../middleware/authMiddleware.js"
 const router=express.Router()
 
 router.get("/",authMiddleware,getTasksController)
-router.delete("/",authMiddleware,deleteTaskController)
+router.delete("/:id",authMiddleware,deleteTaskController)
 router.delete("/all",authMiddleware,deleteAllTasksCotroller)
-router.post("/",authMiddleware,addTaskController)
-router.put("/",authMiddleware,updateTaskController)
+router.post("/:id",authMiddleware,addTaskController)
+router.put("/:id",authMiddleware,updateTaskController)
 
 
 export default router

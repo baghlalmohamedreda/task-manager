@@ -23,10 +23,10 @@ export async function deleteAll(userId){
         `,[userId])
     return result ||null    
 }
-export async function addTask({userId,title,description,completed}){
+export async function addTask({userId,title,completed}){
     const result =await pool.query(`
         insert into taches(userId,title,description,completed)
-        values($1,$2,$3,&4)
+        values($1,$2,$3)
         RETURNING*
         `,[userId,title,description,completed])
     return result ||null    

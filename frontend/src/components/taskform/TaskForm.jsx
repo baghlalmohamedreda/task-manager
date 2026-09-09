@@ -5,7 +5,7 @@ function TaskForm({onAddtask,editingtask,tasks}){
     const [err,setErr]=useState("")
     const [erreur,setErreur]=useState("")
     function handleclick(e){
-        e.preventDefault()
+        e.preventDefault() 
         const titletrim=title.trim()
         const isexiste=tasks.some(e=>e.title.trim().toLowerCase()===title.trim().toLowerCase())
         if(titletrim && !isexiste ){

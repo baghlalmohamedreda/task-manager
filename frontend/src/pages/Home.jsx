@@ -1,6 +1,6 @@
 import Header from "../components/header/Header";
-import TaskForm from "../components/taskform/TaskForm";
 import DeleteModal from "../components/deletemodal/DeleteModal"
+import TaskForm from "../components/taskform/taskform";
 import { useState,useEffect } from "react";
 import TaskList from "../components/tasklist/TaskList";
 import TaskStats from "../components/taskstats/TaskStats";
@@ -23,8 +23,6 @@ const [searchtask,setSearchtask]=useState(()=>{
 })
 const [theme,setTheme]=useState(()=>{
     return localStorage.getItem("theme")||"light"
-
-
 })
  const [editingtask, setEditingtask] = useState(null);
  const [showmodal,setShowmodal]=useState(false)
@@ -49,7 +47,6 @@ useEffect(()=>{
 
 },[theme])
 
-
 function toggletheme(){
     if(theme=="light"){
         setTheme("dark")
@@ -59,7 +56,6 @@ function toggletheme(){
     }
 
 }
-
 function addtask(title) {
         if (editingtask) {
 

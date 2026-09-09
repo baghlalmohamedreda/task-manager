@@ -2,7 +2,7 @@ import { getTasks,delelteTask,deleteAll,addTask,updateTask } from "../services/t
 
 export async function getTasksController(req,res){
     try{
-        const user_id=req.user_id
+        const user_id=req.userId
         const response=await getTasks(user_id)
         return res.status(200).json(response)
 
@@ -30,20 +30,20 @@ export async function deleteAllTasksCotroller(req,res){
           const userId=req.userId
           const response =await deleteAll(userId)
           if(!response){
-            return res.status(400).josn({message:"error"})
+            return res.status(400).json({message:"error"})
           }
           return res.status(200).json({message:"deleted successeful"})
 
     }catch(e){
-        res.stastus(500).json({message:e.message})
+        res.status(500).json({message:e.message})
     }
   
 }
 export async function addTaskController(req,res){
     try{
         const userId=req.userId
-        const {title,description,completed}=req.body
-        const response = await addTask(userId,title,description,completed)
+        const {title,completed}=req.body
+        const response = await addTask(userId,title,completed)
         if(!response){
            return res.status(400).json({message:"error"})
        }
@@ -58,7 +58,7 @@ export async function updateTaskController(req,res){
         const userId=req.userId
         const id=req.params.id
         const {title,completed}=req.body
-        const response=await updateTask(id,title,completed,userId)
+        const response=await updateTask({id,title,completed,userId})
         if(!response){
             return res.status(400).json({message:"non trouve"})
         }
