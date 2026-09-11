@@ -1,26 +1,22 @@
 import { Link } from "react-router-dom"
+import "./Navbar.css"
 
 function Navbar() {
-
   return (
-    <nav>
+    <nav className="navbar">
 
-      <Link to="/">
-        Task Manager
+      <Link to="/" className="navbar-logo">
+        TaskManager
       </Link>
 
-      <div>
-
-        <Link to="/">
-          Accueil
-        </Link>
+      <div className="navbar-links">
 
         <Link to="/login">
-          Connexion
+          Login
         </Link>
 
-        <Link to="/register">
-          S'inscrire
+        <Link to="/register" className="navbar-button">
+          Get Started
         </Link>
 
       </div>

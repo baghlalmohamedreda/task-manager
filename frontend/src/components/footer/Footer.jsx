@@ -1,8 +1,10 @@
-import React from 'react'
+import "./Footer.css"
 
 function Footer() {
   return (
-    <div>Footer</div>
+    <footer className="footer">
+      <p>© 2026 TaskManager. All rights reserved.</p>
+    </footer>
   )
 }
 
