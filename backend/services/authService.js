@@ -5,7 +5,7 @@ export async function getUserByEmail(email){
         select id,email,password from users
         where email=$1
         `,[email])
-        return result.rows
+        return result.rows[0]
 }
 export async function findUserToLogin(email,password){
     const findemail=await pool.query(`

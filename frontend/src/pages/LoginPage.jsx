@@ -28,9 +28,6 @@ function LoginPage() {
       console.log(error.message)
     }
   }
-
-  
-  
   return (
     <div className="auth-page">
 

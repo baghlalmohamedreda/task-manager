@@ -20,7 +20,7 @@ return res.status(200).json({
 })
 
     }catch(e){
-        res.status(500).json({message:e.error})
+        return res.status(500).json({message:e.error})
     }
   
 }
@@ -31,15 +31,15 @@ export async function register(req,res){
          const {name,email,password}=req.body
     const userExist=await getUserByEmail(email)
     if(userExist){
-        res.status(400).json({message:"user exist  svp fait le login"})
+        return res.status(400).json({message:"user exist  svp fait le login"})
     }
     const response=await registerUser(name,email,password)
     if(response){
-        res.status(200).json({message:"succes"})
+       return res.status(200).json({message:"succes"})
     }
 
     }catch(e){
-        res.status(500).json({message:e.message})
+        return res.status(500).json({message:e.message})
     }
    
 

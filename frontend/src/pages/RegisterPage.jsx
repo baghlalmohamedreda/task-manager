@@ -5,20 +5,26 @@ import { useNavigate } from "react-router-dom"
 import { registerUser } from "../services/authService"
 function RegisterPage() {
   const  navigate=useNavigate()
+  const [error,setError]=useState("")
   const [formData,setFormData]=useState({
     name:"",
     email:"",
     password:""
   })
   function handleChange(e){
+    setError("")
     setFormData({
       ...formData,
       [e.target.name]:e.target.value
     })
   }
   async function handleSubmit(e){
-    e.preventDefult()
+    e.preventDefault()
     try{
+      if(!formData.name||!formData.email || !formData.password){
+        setError("il faut remplir tout les champs")
+        return
+      }
       const data=await registerUser(formData)
       navigate("/login")
     }catch(error){
@@ -80,6 +86,7 @@ function RegisterPage() {
               placeholder="Create a password"
             />
           </div>
+          {error && <span style={{color:'red'}}>{error}</span>}
 
           <button
             type="submit"

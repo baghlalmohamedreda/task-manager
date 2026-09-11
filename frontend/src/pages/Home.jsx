@@ -6,13 +6,10 @@ import TaskList from "../components/tasklist/TaskList";
 import TaskStats from "../components/taskstats/TaskStats";
 import DeleteCompleted from "../components/deletemodal/DeleteCompleted"
 import TaskToolBar from "../components/tasktoolbar/TaskToolBar"
+import { getTasks } from "../services/taskServices";
 import "./Home.css"
 function Home() {
-    const [tasks, setTasks] = useState(()=>{
-        const values=localStorage.getItem("tasks")
-        return values? JSON.parse(values):[]
-    }
-)
+    const [tasks, setTasks] = useState([])
 const [filter,setFilter]=useState(()=>{
     return localStorage.getItem("filter")||"all"
 
@@ -30,8 +27,12 @@ const [theme,setTheme]=useState(()=>{
  const [tasktodelete,setTasktodelete]=useState(null)
 
 useEffect(()=>{
-    localStorage.setItem("tasks",JSON.stringify(tasks))  
-},[tasks])
+    async function loadTasks(){
+        const data=await getTasks()
+        setTasks(data)
+    }
+    loadTasks()
+    },[])
 useEffect(()=>{
     localStorage.setItem("filter",filter)
 
