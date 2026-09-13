@@ -103,9 +103,7 @@ function RegisterPage() {
             Login
           </Link>
         </p>
-        <h3>{formData.name}</h3>
-        <h3>{formData.email}</h3>
-        <h3>{formData.password}</h3>
+        
 
 
       </div>

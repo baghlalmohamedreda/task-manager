@@ -5,11 +5,13 @@ import { useState } from "react"
 import { loginUser } from "../services/authService"
 function LoginPage() {
   const navigate=useNavigate()
+  const [error,setError]=useState("")
   const [formData,setFormDats]=useState({
     email:"",
     password:""
   })
   function handleChange(e){
+    setError("")
     setFormDats({
       ...formData,
       [e.target.name]:e.target.value
@@ -20,6 +22,9 @@ function LoginPage() {
   async function handleSubmit(e){
     e.preventDefault()
     try{
+      if(!formData.email||!formData.password){
+        setError("il faut remplir tout les champs")
+      }
       const data=await loginUser(formData)
       localStorage.setItem("token",data.token)
       navigate("/home")
@@ -76,6 +81,7 @@ function LoginPage() {
           </button>
 
         </form>
+          {error && <span style={{color:'red'}}>{error}</span>}
 
         <p className="auth-footer-text">
           Don't have an account?

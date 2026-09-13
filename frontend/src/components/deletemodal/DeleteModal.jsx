@@ -9,18 +9,9 @@ function DeleteModal({onAnuller,onSupprimer}){
              <div className="modal-buttons">
             <button onClick={onAnuller}>annuler</button>
             <button onClick={onSupprimer}>supprimer</button>
-
         </div>
-       
         </div>
-
-
-
-
        </div>
     )
-
-
-
 }
 export default DeleteModal

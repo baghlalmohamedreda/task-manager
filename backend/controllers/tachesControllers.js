@@ -1,4 +1,4 @@
-import { getTasks,delelteTask,deleteAll,addTask,updateTask } from "../services/tachesServices.js";
+import { getTasks,delelteTask,deleteAll,addTask,updateTask,editToggleCompleted } from "../services/tachesServices.js";
 
 export async function getTasksController(req,res){
     try{
@@ -70,4 +70,20 @@ export async function updateTaskController(req,res){
 
     }
     
+}
+export async function updateToggleCompleted(req,res){
+    try{
+         const user_id=req.userId
+         const {completed}=req.body
+         const id=req.params.id
+         const response=await editToggleCompleted({completed,id,user_id})
+         if(!response){
+            return res.status(400).json({message:"ressource introuvable ou requte invalide"})
+         }
+         return res.status(200).json({message:"updates"})
+
+    }catch(e){
+        return res.status(500).json({message:e.message})
+    }
+   
 }

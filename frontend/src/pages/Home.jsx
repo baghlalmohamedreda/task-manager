@@ -2,11 +2,11 @@ import Header from "../components/header/Header";
 import DeleteModal from "../components/deletemodal/DeleteModal"
 import TaskForm from "../components/taskform/taskform";
 import { useState,useEffect } from "react";
-import TaskList from "../components/tasklist/TaskList";
+import TaskList from "../components/tasklist/tasklist";
 import TaskStats from "../components/taskstats/TaskStats";
 import DeleteCompleted from "../components/deletemodal/DeleteCompleted"
 import TaskToolBar from "../components/tasktoolbar/TaskToolBar"
-import { getTasks } from "../services/taskServices";
+import { getTasks,deleteTask,deleteAllTasks } from "../services/taskServices";
 import "./Home.css"
 function Home() {
     const [tasks, setTasks] = useState([])
@@ -96,12 +96,18 @@ function annuler(){
     setShowmodal(false)
     setTasktodelete(null)
 }
-function confirmesuppression(){
-    if(tasktodelete){
+async function confirmesuppression(){
+    try{
+        if(tasktodelete){
+        const response =await deleteTask(tasktodelete)
         setTasks(prev=>prev.filter(e=>e.id!==tasktodelete))
         setShowmodal(false)
         setTasktodelete(null)
     }
+    }catch(e){
+        console.log(e.message)
+    }
+   
 }
 function deletetask(id) {
         setShowmodal(true)
@@ -131,16 +137,34 @@ function annulersuppresiondt(){
 
 
     }
-function confirmersuppresiondt(){
-        setTasks(prev=>prev.filter(e=>e.completed==false))
-        setShowdelete(false)
-    }
+async function confirmersuppresiondt() {
+  console.log("1 - clic supprimer")
+
+  try {
+    console.log("2 - avant API")
+
+    await deleteAllTasks()
+
+    console.log("3 - suppression backend réussie")
+
+    setTasks(prev =>
+      prev.filter(task => !task.completed)
+    )
+
+    setShowdelete(false)
+
+    console.log("4 - state mis à jour")
+
+  } catch (e) {
+    console.log("ERREUR :", e.message)
+  }
+}
 function supprimertt(){
         setShowdelete(true)
 
     }
 function handlesearchbar(e){
-    setSearchtask(e.target.value)
+    setSearchtask(e.target.value) 
 }
 function handlesearchtask(){
     if(searchtask.trim()){
@@ -148,7 +172,6 @@ function handlesearchtask(){
 
     }
     return handlefilterchange()
-
 
 }    
 
@@ -169,8 +192,6 @@ return (
                      searchtask={searchtask}
                      filter={filter}
 
-
-        
         />
         <TaskList
             tasks={handlesearchtask()}

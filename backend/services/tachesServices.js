@@ -17,8 +17,9 @@ export async function delelteTask(userId,id){
 }
 export async function deleteAll(userId){
     const result =await pool.query(`
-        delete *from taches
+        delete from taches
         where user_id=$1
+        and completed=true
         RETURNING*
         `,[userId])
     return result ||null    
@@ -42,4 +43,12 @@ export async function updateTask({userId,title,id,completed}){
         `,[title,completed,id,userId])
     return result.rows[0]  || null 
 }
-
+export async function editToggleCompleted({completed,user_id,id}){
+    const result =await pool.query(`
+        update taches
+        set completed=$1
+        where user_id=$2 and id=$3
+        RETURNING*
+        `,[completed,user_id,id])
+    return result.rows[0]||null    
+}
