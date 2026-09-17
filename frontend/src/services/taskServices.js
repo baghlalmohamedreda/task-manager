@@ -41,7 +41,7 @@ export async function deleteAllTasks(){
     }
     return data
 }
-export async function updateToggle(id,FormData){
+export async function updateToggle(id,tasks){
      const token =localStorage.getItem("token")
      const response=await fetch(`http://localhost:5000/api/tasks/${id}`,{
         method:"PATCH",
@@ -49,9 +49,26 @@ export async function updateToggle(id,FormData){
             "Content-Type":"application/json",
             "Authorization":`Bearer ${token}`
         },
-        body:JSON.stringify({completed:FormData.completed})
+        body:JSON.stringify({completed:tasks.completed})
     })
     const data=await response.json()
+     if(!response.ok){
+        throw new Error(data.message)
+    }
+    return data
+
+}
+export async function addTask(tasks) {
+    const token=localStorage.getItem("token")
+    const response =await fetch(`http://localhost:5000/api/tasks`,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization":`Bearer ${token}`
+        },
+        body:JSON.stringify({title:tasks.title,completed:tasks.completed})
+    })
+     const data=await response.json()
      if(!response.ok){
         throw new Error(data.message)
     }

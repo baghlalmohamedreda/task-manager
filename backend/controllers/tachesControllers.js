@@ -43,11 +43,13 @@ export async function addTaskController(req,res){
     try{
         const userId=req.userId
         const {title,completed}=req.body
-        const response = await addTask(userId,title,completed)
+        const response = await addTask({userId,title,completed})
         if(!response){
            return res.status(400).json({message:"error"})
        }
-    return res.status(200).json({message:" add successeful"})
+    return res.status(200).json({
+        message:" add successeful",
+        task:response})
     }catch(e){
         res.status(500).json({message:e.message})
     }

@@ -1,225 +1,411 @@
-import Header from "../components/header/Header";
+import Header from "../components/header/Header"
 import DeleteModal from "../components/deletemodal/DeleteModal"
-import TaskForm from "../components/taskform/taskform";
-import { useState,useEffect } from "react";
-import TaskList from "../components/tasklist/tasklist";
-import TaskStats from "../components/taskstats/TaskStats";
+import TaskForm from "../components/taskform/taskform"
+import { useState, useEffect } from "react"
+import TaskList from "../components/tasklist/tasklist"
+import TaskStats from "../components/taskstats/TaskStats"
 import DeleteCompleted from "../components/deletemodal/DeleteCompleted"
 import TaskToolBar from "../components/tasktoolbar/TaskToolBar"
-import { getTasks,deleteTask,deleteAllTasks } from "../services/taskServices";
+
+import {
+    getTasks,
+    deleteTask,
+    deleteAllTasks,
+    updateToggle,
+    addTask
+} from "../services/taskServices"
+
 import "./Home.css"
+
 function Home() {
+
     const [tasks, setTasks] = useState([])
-const [filter,setFilter]=useState(()=>{
-    return localStorage.getItem("filter")||"all"
 
-})
-const [searchtask,setSearchtask]=useState(()=>{
-    return localStorage.getItem("searchtask")||""
+    const [filter, setFilter] = useState(() => {
+        return localStorage.getItem("filter") || "all"
+    })
 
-})
-const [theme,setTheme]=useState(()=>{
-    return localStorage.getItem("theme")||"light"
-})
- const [editingtask, setEditingtask] = useState(null);
- const [showmodal,setShowmodal]=useState(false)
- const [showdelete,setShowdelete]=useState(false)
- const [tasktodelete,setTasktodelete]=useState(null)
+    const [searchtask, setSearchtask] = useState(() => {
+        return localStorage.getItem("searchtask") || ""
+    })
 
-useEffect(()=>{
-    async function loadTasks(){
-        const data=await getTasks()
-        setTasks(data)
+    const [theme, setTheme] = useState(() => {
+        return localStorage.getItem("theme") || "light"
+    })
+
+    const [editingtask, setEditingtask] = useState(null)
+    const [showmodal, setShowmodal] = useState(false)
+    const [showdelete, setShowdelete] = useState(false)
+    const [tasktodelete, setTasktodelete] = useState(null)
+
+
+    useEffect(() => {
+
+        async function loadTasks() {
+            try {
+                const data = await getTasks()
+                setTasks(data)
+            } catch (e) {
+                console.log(e.message)
+            }
+        }
+
+        loadTasks()
+
+    }, [])
+
+
+    useEffect(() => {
+
+        localStorage.setItem("filter", filter)
+
+    }, [filter])
+
+
+    useEffect(() => {
+
+        localStorage.setItem("searchtask", searchtask)
+
+    }, [searchtask])
+
+
+    useEffect(() => {
+
+        localStorage.setItem("theme", theme)
+
+    }, [theme])
+
+
+    useEffect(() => {
+
+        document.body.className = theme
+
+    }, [theme])
+
+
+    function toggletheme() {
+
+        if (theme === "light") {
+            setTheme("dark")
+        } else {
+            setTheme("light")
+        }
+
     }
-    loadTasks()
-    },[])
-useEffect(()=>{
-    localStorage.setItem("filter",filter)
-
-}
-,[filter])
-useEffect(()=>{
-    localStorage.setItem("searchtask",searchtask)
-
-},[searchtask])
-useEffect(()=>{
-    localStorage.setItem("theme",theme)
 
 
-},[theme])
+    async function addtask(title) {
 
-function toggletheme(){
-    if(theme=="light"){
-        setTheme("dark")
+        try {
+
+            if (editingtask) {
+
+                setTasks(prevTasks =>
+                    prevTasks.map(task =>
+                        task.id === editingtask.id
+                            ? {
+                                ...task,
+                                title: title
+                            }
+                            : task
+                    )
+                )
+
+                setEditingtask(null)
+
+            } else {
+
+                const newTask = {
+                    title: title,
+                    completed: false
+                }
+
+                const response = await addTask(newTask)
+
+                setTasks(prevTasks => [
+                    ...prevTasks,
+                    response.task
+                ])
+            }
+
+        } catch (e) {
+            console.log(e.message)
+        }
+
     }
-    else{
-        setTheme("light")
-    }
 
-}
-function addtask(title) {
-        if (editingtask) {
 
-            setTasks(prevtasks =>
-                prevtasks.map(task =>
-                    task.id === editingtask.id
-                        ? { ...task, title: title }
+    async function handlchange(id) {
+
+        try {
+
+            const task = tasks.find(task => task.id === id)
+
+            if (!task) {
+                return
+            }
+
+            const newCompleted = !task.completed
+
+            await updateToggle(id, {
+                completed: newCompleted
+            })
+
+            setTasks(prev =>
+                prev.map(task =>
+                    task.id === id
+                        ? {
+                            ...task,
+                            completed: newCompleted
+                        }
                         : task
                 )
-            );
+            )
 
-            setEditingtask(null);
-        } else {
-                 setTasks(prevtasks => [
-                ...prevtasks,
-                {
-                    id: Date.now(),
-                    title: title,
-                    completed:false
-                }
-            ])
-
-           
+        } catch (e) {
+            console.log(e.message)
         }
+
     }
-useEffect(() => {
-    document.body.className = theme;
-}, [theme]);    
-function handlchange(id){
-        setTasks(prev=>prev.map(task=>
-            task.id===id?
-            {...task,completed:!task.completed}
-            :task
-        ))
-    }
-function annuler(){
-    setShowmodal(false)
-    setTasktodelete(null)
-}
-async function confirmesuppression(){
-    try{
-        if(tasktodelete){
-        const response =await deleteTask(tasktodelete)
-        setTasks(prev=>prev.filter(e=>e.id!==tasktodelete))
+
+
+    function annuler() {
+
         setShowmodal(false)
         setTasktodelete(null)
+
     }
-    }catch(e){
-        console.log(e.message)
+
+
+    async function confirmesuppression() {
+
+        try {
+
+            if (tasktodelete) {
+
+                await deleteTask(tasktodelete)
+
+                setTasks(prev =>
+                    prev.filter(task =>
+                        task.id !== tasktodelete
+                    )
+                )
+
+                setShowmodal(false)
+                setTasktodelete(null)
+
+            }
+
+        } catch (e) {
+            console.log(e.message)
+        }
+
     }
-   
-}
-function deletetask(id) {
+
+
+    function deletetask(id) {
+
         setShowmodal(true)
-        setTasktodelete(id) 
+        setTasktodelete(id)
+
     }
-function edittask(task) {
-        setEditingtask(task);
+
+
+    function edittask(task) {
+
+        setEditingtask(task)
+
     }
-    
-function handlefilterchange(){
-        if(filter=="all"){
+
+
+    function handlefilterchange() {
+
+        if (filter === "all") {
+
             return tasks
+
+        } else if (filter === "active") {
+
+            return tasks.filter(
+                task => task.completed === false
+            )
+
+        } else if (filter === "completed") {
+
+            return tasks.filter(
+                task => task.completed === true
+            )
+
         }
-        else if(filter=="active"){
-            return tasks.filter(e=>e.completed===false)
-        }
-        else if(filter=="completed"){
-            return tasks.filter(e=>e.completed==true)
-            
-        }
+
+        return tasks
     }
-function handlechange(e){
+
+
+    function handlechange(e) {
+
         setFilter(e.target.value)
+
     }
-function annulersuppresiondt(){
+
+
+    function annulersuppresiondt() {
+
         setShowdelete(false)
 
+    }
+
+
+    async function confirmersuppresiondt() {
+
+        try {
+
+            await deleteAllTasks()
+
+            setTasks(prev =>
+                prev.filter(task => !task.completed)
+            )
+
+            setShowdelete(false)
+
+        } catch (e) {
+
+            console.log("ERREUR :", e.message)
+
+        }
 
     }
-async function confirmersuppresiondt() {
-  console.log("1 - clic supprimer")
 
-  try {
-    console.log("2 - avant API")
 
-    await deleteAllTasks()
+    function supprimertt() {
 
-    console.log("3 - suppression backend réussie")
-
-    setTasks(prev =>
-      prev.filter(task => !task.completed)
-    )
-
-    setShowdelete(false)
-
-    console.log("4 - state mis à jour")
-
-  } catch (e) {
-    console.log("ERREUR :", e.message)
-  }
-}
-function supprimertt(){
         setShowdelete(true)
 
     }
-function handlesearchbar(e){
-    setSearchtask(e.target.value) 
-}
-function handlesearchtask(){
-    if(searchtask.trim()){
-        return handlefilterchange().filter(e=>e.title.trim().toLowerCase().includes(searchtask.toLowerCase()))
+
+
+    function handlesearchbar(e) {
+
+        setSearchtask(e.target.value)
 
     }
-    return handlefilterchange()
-
-}    
-
-return (
-    <div className={`app ${theme}`}>
-        <div className="home">
-        <Header onToggletheme={toggletheme} theme={theme}/>
-        <TaskForm
-            key={editingtask ? editingtask.id : "new-task"}
-            onAddtask={addtask}
-            editingtask={editingtask}
-            onHandlechange={handlechange}
-            tasks={tasks}
-        />
-        <TaskToolBar onSupprimertt={supprimertt} 
-                     onHandlechange={handlechange}
-                     onHandlesearchbar={handlesearchbar}
-                     searchtask={searchtask}
-                     filter={filter}
-
-        />
-        <TaskList
-            tasks={handlesearchtask()}
-            onDeletetask={deletetask}
-            onEditingtask={edittask}
-            onHandlchange={handlchange}
-            onSupprimertt={supprimertt}
-        />
-        <TaskStats tasks={tasks} />
-        {showmodal && (
-            <DeleteModal
-                onAnuller={annuler}
-                onSupprimer={confirmesuppression}
-            />
-        )}
-        {showdelete && (
-            <DeleteCompleted
-                onAnuller={annulersuppresiondt}
-                onSupprimer={confirmersuppresiondt}
-            />
-        )}
-    </div>
 
 
+    function handlesearchtask() {
+
+        const filteredTasks = handlefilterchange()
+
+        if (searchtask.trim()) {
+
+            return filteredTasks.filter(
+                task =>
+                    task.title
+                        .trim()
+                        .toLowerCase()
+                        .includes(
+                            searchtask
+                                .trim()
+                                .toLowerCase()
+                        )
+            )
+
+        }
+
+        return filteredTasks
+    }
 
 
-    </div>
-    
-)
+    return (
+
+        <div className={`app ${theme}`}>
+
+            <div className="home">
+
+                <Header
+                    onToggletheme={toggletheme}
+                    theme={theme}
+                />
+
+
+                <TaskForm
+
+                    key={
+                        editingtask
+                            ? editingtask.id
+                            : "new-task"
+                    }
+
+                    onAddtask={addtask}
+
+                    editingtask={editingtask}
+
+                    onHandlechange={handlechange}
+
+                    tasks={tasks}
+
+                />
+
+
+                <TaskToolBar
+
+                    onSupprimertt={supprimertt}
+
+                    onHandlechange={handlechange}
+
+                    onHandlesearchbar={handlesearchbar}
+
+                    searchtask={searchtask}
+
+                    filter={filter}
+
+                />
+
+
+                <TaskList
+
+                    tasks={handlesearchtask()}
+
+                    onDeletetask={deletetask}
+
+                    onEditingtask={edittask}
+
+                    onHandlchange={handlchange}
+
+                    onSupprimertt={supprimertt}
+
+                />
+
+
+                <TaskStats tasks={tasks} />
+
+
+                {
+                    showmodal && (
+
+                        <DeleteModal
+                            onAnuller={annuler}
+                            onSupprimer={confirmesuppression}
+                        />
+
+                    )
+                }
+
+
+                {
+                    showdelete && (
+
+                        <DeleteCompleted
+                            onAnuller={annulersuppresiondt}
+                            onSupprimer={confirmersuppresiondt}
+                        />
+
+                    )
+                }
+
+            </div>
+
+        </div>
+    )
 }
-export default Home;
+
+export default Home

@@ -26,10 +26,10 @@ export async function deleteAll(userId){
 }
 export async function addTask({userId,title,completed}){
     const result =await pool.query(`
-        insert into taches(userId,title,description,completed)
+        insert into taches(userId,title,completed)
         values($1,$2,$3)
         RETURNING*
-        `,[userId,title,description,completed])
+        `,[userId,title,completed])
     return result ||null    
 }
 export async function updateTask({userId,title,id,completed}){

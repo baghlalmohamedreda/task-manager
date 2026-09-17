@@ -6,7 +6,7 @@ const router=express.Router()
 router.get("/",authMiddleware,getTasksController)
 router.delete("/:id",authMiddleware,deleteTaskController)
 router.delete("/",authMiddleware,deleteAllTasksCotroller)
-router.post("/:id",authMiddleware,addTaskController)
+router.post("/",authMiddleware,addTaskController)
 router.put("/:id",authMiddleware,updateTaskController)
 router.patch("/:id",authMiddleware,updateToggleCompleted)
 
